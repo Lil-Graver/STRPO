@@ -1,0 +1,4 @@
+GET http://localhost:8000/api/autocomplete/?q=Москва HTTP/1.1
+
+###
+GET http://localhost:8000/api/forecast/?lat=55.750555555&lon=37.6175 HTTP/1.1
