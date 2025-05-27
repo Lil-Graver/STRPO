@@ -8,5 +8,6 @@ urlpatterns = [
     path('history/', UserHistoryView.as_view()),
     path('autocomplete/', CityAutocompleteView.as_view()),
     path('stats/', CityStatsView.as_view()),
+    path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
 ]
