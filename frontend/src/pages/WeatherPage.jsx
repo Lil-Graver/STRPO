@@ -29,17 +29,6 @@ function WeatherPage({ backend_base }) {
 
 	const handleSelect = async(city) => {
 		const headers = localStorage.getItem('access') ? {Authorization: `Bearer ${localStorage.getItem('access')}`} : {}
-		// axios.get(`${backend_base}forecast/`, {
-		// 	headers,
-		// 	params: {
-		// 		lat: city.latitude,
-		// 		lon: city.longitude,
-		// 		city: city.city_name,
-		// 		country: city.country
-		// 	}
-		// }).then(res => {
-		// 	setForecast(res.data);
-		// });
 		try {
 			const response = await axios.get(`${backend_base}forecast/`, {
 				headers,
@@ -113,10 +102,6 @@ function WeatherPage({ backend_base }) {
 	return (
 		<div className='text-center'>
 		{localStorage.getItem('access') ?
-			// <div>
-			// 	<button className='cursor-pointer' onClick={handleLogout}>Выход</button>
-			// 	<button className='cursor-pointer' onClick={handleHistory}>История запросов</button>
-			// </div>
 			<div className="mt-10 flex items-center justify-center gap-x-6">
             <button
 				onClick={handleHistory}
@@ -146,24 +131,11 @@ function WeatherPage({ backend_base }) {
 		</h2>
 		<CitySearch onForecastReceived={setForecast} backend_base={backend_base}/>
 		{forecast && (
-			// <div>
-			// 	<h2>Температура по часам</h2>
-			// 	<ul>
-			// 		{forecast.hourly.time.map((time, index) => (
-			// 		<li key={index}>
-			// 			{formatTime(time)}: {forecast.hourly.temperature_2m[index]}°C
-			// 		</li>
-			// 		))}
-			// 	</ul>
-			// </div>
 			<div className="flex flex-col items-center justify-center w-screen  text-gray-700">
 		
 		<div className="flex flex-col space-y-6 w-full max-w-screen-sm bg-white p-10 mt-10 rounded-xl ring-8 ring-white ring-opacity-40">
 			<h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Температура по часам</h2>
 			{forecast.hourly.time.map((time, index) => (
-				// <li key={index}>
-				// 	{formatTime(time)}: {forecast.hourly.temperature_2m[index]}°C
-				// </li>
 				<div className="flex justify-between items-center">
 					<span className="font-semibold text-lg w-1/4">{formatTime(time)}</span>
 					
@@ -174,22 +146,10 @@ function WeatherPage({ backend_base }) {
 			
 			
 		</div>
-		{/* Component End  */}
 		</div>
 
 		)}
 		{localStorage.getItem('access') ?
-			// <div>
-			// <h2>Последние запросы</h2>
-			// <ul>
-			// 	{recents.map((city, index) => (
-			// 	<li key={index} onClick={() => handleSelect(city)}>
-			// 		{city.city_name}, {city.country}
-			// 	</li>
-			// 	))}
-    		// </ul>
-			// </div>
-
 			<div>
 				<h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
 					Последние запросы

@@ -67,12 +67,6 @@ const RegisterPage = ({ backend_base }) => {
           </button>
         </div>
     </div>
-    // <div>
-    //   <h2>Регистрация</h2>
-    //   <input value={username} onChange={e => setUsername(e.target.value)} placeholder="Имя пользователя" />
-    //   <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Пароль" />
-    //   <button onClick={handleRegister}>Зарегистрироваться</button>
-    // </div>
   );
 };
 

@@ -32,7 +32,6 @@ class HistoryTest(APITestCase):
 class CityAutocompleteTestCase(APITestCase):
     @patch('weather.views.requests.get')
     def test_autocomplete(self, mock_get):
-        # Фейковые данные, которые вернёт RapidAPI
         mock_response = {
             "data": [
                 {
