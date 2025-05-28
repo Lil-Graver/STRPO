@@ -42,7 +42,7 @@ git clone https://github.com/Putopu3m/Weather_app_with_DRF_and_React
 cd Weather_app_with_DRF_and_React
 ````
 
-### 2. Запуск контейнеров
+### 2. Запустить контейнеры
 
 ```bash
 docker-compose up --build
