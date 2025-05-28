@@ -1,62 +1,77 @@
-# Weather Forecast Application
+````markdown
+# Weather Forecast App
 
-## Overview
-This is a full-stack web application that allows users to input a city name and view the weather forecast using the [Open-Meteo API](https://open-meteo.com/). It features city autocomplete, search history tracking, and a suggestion to revisit previously searched cities. The application is built with Django Rest Framework (backend), React (frontend), and PostgreSQL (database), and is containerized using Docker.
+Веб-приложение, в котором пользователь может ввести название города и получить прогноз погоды на ближайшее время. Реализовано на стеке Django Rest Framework + React + PostgreSQL + Docker.
 
-## Features
-- **Weather Forecast**: Retrieve and display weather forecasts for a given city.
-- **Autocomplete**: City input with autocomplete suggestions (using a static city list).
-- **Search History**: Save user searches and display search history statistics via an API endpoint.
-- **Previous City Suggestion**: Suggest the last searched city on page reload (stored in local storage).
-- **Tests**: Unit tests for backend API endpoints.
-- **Dockerized**: Backend, frontend, and database run in Docker containers.
+## Реализованный функционал
 
-## Technologies
-- **Backend**: Django Rest Framework, Python, PostgreSQL
-- **Frontend**: React, Tailwind CSS, react-select (for autocomplete)
-- **API**: Open-Meteo for weather data
-- **Containerization**: Docker, docker-compose
-- **Testing**: Django's testing framework
+- Ввод города и получение прогноза погоды через [Open-Meteo API](https://open-meteo.com)
+- Удобный и читаемый формат вывода данных
+- React-интерфейс с автодополнением городов через [GeoDB Cities API](https://rapidapi.com/wirefreethought/api/geodb-cities/)
+- Регистрация и аутентификация пользователей через JWT (access + refresh)
+- Хранение истории запросов погоды по городам для авторизованных пользователей
+- Сделаны автодополнение при вводе города
+- Предложение пяти последних просмотренных городов при повторном входе
+- API для отображения статистики по количеству запросов по каждому городу
+- Миграции и запуск приложения в Docker-контейнерах
+- Тесты на backend с покрытием основных эндпоинтов
 
-## Setup and Running
-### Prerequisites
-- Docker and Docker Compose installed
-- Node.js (for local development, optional)
-- Python 3.9+ (for local development, optional)
+## Используемые технологии
 
-### Steps to Run
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd weather-app
-   ```
+**Backend**:
+- Python 3.x
+- Django 5.x
+- Django Rest Framework
+- Djoser (JWT)
+- PostgreSQL
 
-2. **Set up environment variables**:
-   - Copy `.env.example` to `.env` and fill in any required values (e.g., `DATABASE_URL`).
+**Frontend**:
+- React + Vite
+- TailwindCSS
+- Axios
 
-3. **Build and run with Docker**:
-   ```bash
-   docker-compose up --build
-   ```
-   - Backend: Runs on `http://localhost:8000`
-   - Frontend: Runs on `http://localhost:3000`
-   - PostgreSQL: Runs on `localhost:5432` (inside Docker network)
+**Инфраструктура**:
+- Docker
+- docker-compose
+- RapidAPI (для автодополнения)
 
-4. **Access the application**:
-   - Open `http://localhost:3000` in your browser.
-   - API endpoints are available at `http://localhost:8000/api/`.
+## Запуск проекта
 
-5. **Run tests (optional)**:
-   ```bash
-   docker-compose exec backend python manage.py test
-   ```
+### 1. Склонировать репозиторий
+Создать папку 
+```bash
+git clone https://github.com/Putopu3m/Weather_app_with_DRF_and_React
+cd Weather_app_with_DRF_and_React
+````
 
-## API Endpoints
-- `GET /api/weather/?city=<city_name>`: Fetch weather forecast for a city.
-- `GET /api/cities/?q=<query>`: Get city suggestions for autocomplete.
-- `GET /api/search-stats/`: Get city search statistics (count of searches per city).
+### 2. Запуск контейнеров
 
-## Notes
-- The city autocomplete uses a static `cities.json` file for simplicity. In production, consider using an external API like GeoDB Cities.
-- Search history is stored in PostgreSQL and tied to a session (not user accounts, for simplicity).
-- The Open-Meteo API is free and requires no API key.
+```bash
+docker-compose up --build
+```
+
+### 3. Открыть приложение
+Приложение запустится по адресу:
+* `http://localhost:5173` (Ввести в браузер)
+
+---
+
+## Реализованные эндпоинтов
+В приложении есть UI, с помощью которого можно найти все функции, однако в приложении доступеы следующие эндпоинты:
+
+* `GET /api/forecast/?lon=37.6175&lat=55.750555555&city=Москва&country=Россия` — получить прогноз погоды 
+* `GET /api/autocomplete?q=Моск` — автокомплит городов (Можно ввести любой другой город)
+* `POST /api/users/register/` — регистрация
+* `POST /api/users/auth/jwt/create/` — получение токена (JWT)
+* `GET /api/history/` — история запросов пользователя
+* `GET /api/stats/` — статистика по всем запросам
+
+---
+
+## Тесты
+
+Для запуска тестов:
+
+```bash
+docker-compose exec backend python manage.py test
+```
