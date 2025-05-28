@@ -28,19 +28,27 @@ class WeatherForecastView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         
+        
+        if not city_name:
+            return Response(
+                {"error": "Missing required parameters: city"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if not country:
+            return Response(
+                {"error": "Missing required parameters: country"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         if request.user.is_authenticated:
-            if not city_name:
-                return Response(
-                    {"error": "Missing required parameters: city"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            if not country:
-                return Response(
-                    {"error": "Missing required parameters: country"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
             CityQuery.objects.create(
                 user=request.user, 
+                city_name=city_name, 
+                country=country,
+                longitude=longitude,
+                latitude=latitude
+            )
+        else:
+            CityQuery.objects.create(
                 city_name=city_name, 
                 country=country,
                 longitude=longitude,
