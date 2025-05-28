@@ -194,7 +194,7 @@ function WeatherPage({ backend_base }) {
 				<h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
 					Последние запросы
 				</h2>
-				<ul role="list" className="divide-y divide-gray-100 mx-120 pb-20">
+				<ul role="list" className="divide-y divide-gray-100 mx-150 pb-20">
 				{recents.map((city, index) => (
 					<li key={index} onClick={() => handleSelect(city)} className="flex justify-between gap-x-6 py-2 cursor-pointer">
 						<div className="flex min-w-0 gap-x-4">

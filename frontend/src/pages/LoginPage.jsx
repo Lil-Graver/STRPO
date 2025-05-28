@@ -79,13 +79,6 @@ const LoginPage = ({ backend_base }) => {
         </div>
       </div>
     </div>
-
-    // <div>
-    //   <h2>Вход</h2>
-    //   <input value={username} onChange={e => setUsername(e.target.value)} placeholder="Имя пользователя" />
-    //   <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Пароль" />
-    //   <button onClick={handleLogin}>Войти</button>
-    // </div>
   );
 };
 

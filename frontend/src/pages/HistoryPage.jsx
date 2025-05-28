@@ -56,7 +56,7 @@ const HistoryPage = ({ backend_base }) => {
 			<h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
             	История запросов
           	</h2>
-			<ul role="list" className="divide-y divide-gray-100 px-80">
+			<ul role="list" className="divide-y divide-gray-100 mx-150">
 			{history.map((city, index) => (
 				<li key={index} className="flex justify-between gap-x-6 py-2">
 				<div className="flex min-w-0 gap-x-4">
@@ -81,7 +81,9 @@ const HistoryPage = ({ backend_base }) => {
           	</h2>
 		</div>
 		}
-		<a className="ml-80 cursor-pointer rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" href="/">На главную</a>
+		<a className="ml-150 cursor-pointer rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" href="/">
+			На главную
+		</a>
 	</div>
     )
 }

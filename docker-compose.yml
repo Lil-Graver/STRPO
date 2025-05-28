@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: weatherdb
+      POSTGRES_USER: weatheruser
+      POSTGRES_PASSWORD: weatherpass
+    # volumes:
+    #   - db-volume:/var/lib/postgresql/data
+    networks:
+      - weather-net
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: weatherdb
+      POSTGRES_USER: weatheruser
+      POSTGRES_PASSWORD: weatherpass
+      POSTGRES_HOST: db
+      RAPIDAPI_KEY: 'b8f4c9ddc0msha8a5fb189d59bbbp121495jsn26ac1ec9efe5'
+    networks:
+      - weather-net
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - 5173:5173
+    networks:
+      - weather-net
+
+# volumes:
+#   db-volume:
+#     driver: local
+
+networks:
+  weather-net:

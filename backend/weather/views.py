@@ -13,7 +13,6 @@ from .serializers import CityQuerySerializer
 
 class WeatherForecastView(APIView):
     def get_permissions(self):
-        print(self.request.user.is_authenticated)
         return super().get_permissions()
     
     def get(self, request):
