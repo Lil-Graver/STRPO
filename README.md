@@ -37,7 +37,6 @@
 ## Запуск проекта
 
 ### 1. Склонировать репозиторий
-Создать папку 
 ```bash
 git clone https://github.com/Putopu3m/Weather_app_with_DRF_and_React
 cd Weather_app_with_DRF_and_React
