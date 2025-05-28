@@ -1,4 +1,3 @@
-````markdown
 # Weather Forecast App
 
 Веб-приложение, в котором пользователь может ввести название города и получить прогноз погоды на ближайшее время. Реализовано на стеке Django Rest Framework + React + PostgreSQL + Docker.
