@@ -8,12 +8,17 @@ const LoginPage = ({ backend_base }) => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const response = await axios.post(`${backend_base}users/auth/jwt/create/`, {
-      username, password
-    });
-    localStorage.setItem('access', response.data.access);
-    localStorage.setItem('refresh', response.data.refresh);
-    navigate('/');
+    try {
+		const response = await axios.post(`${backend_base}users/auth/jwt/create/`, {
+		username, password
+		});
+		localStorage.setItem('access', response.data.access);
+		localStorage.setItem('refresh', response.data.refresh);
+		navigate('/');
+    } catch (error) {
+		alert('Неправильные данные')
+    }
+    
   };
 
   return (
