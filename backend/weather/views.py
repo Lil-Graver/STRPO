@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db.models import Count
 from rest_framework import status
 from rest_framework.permissions import (IsAuthenticated,
-                                        IsAuthenticatedOrReadOnly)
+                                        AllowAny)
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,26 +12,41 @@ from .serializers import CityQuerySerializer
 
 
 class WeatherForecastView(APIView):
-    # permission_classes = [IsAuthenticatedOrReadOnly]
-
+    def get_permissions(self):
+        print(self.request.user.is_authenticated)
+        return super().get_permissions()
+    
     def get(self, request):
         latitude = request.query_params.get("lat")
         longitude = request.query_params.get("lon")
         city_name = request.query_params.get("city")
+        country = request.query_params.get("country")
 
         if not (latitude and longitude):
             return Response(
                 {"error": "Missing required parameters: lat, lon"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
-        # Save query to history (if authenticated)
+        
         if request.user.is_authenticated:
             if not city_name:
-                return Response({"error": "Missing required parameters: city"})
-            CityQuery.objects.create(user=request.user, city_name=city_name)
+                return Response(
+                    {"error": "Missing required parameters: city"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            if not country:
+                return Response(
+                    {"error": "Missing required parameters: country"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            CityQuery.objects.create(
+                user=request.user, 
+                city_name=city_name, 
+                country=country,
+                longitude=longitude,
+                latitude=latitude
+            )
 
-        # Call Open-Meteo API
         weather_url = "https://api.open-meteo.com/v1/forecast"
         params = {
             "latitude": latitude,
@@ -53,7 +68,11 @@ class UserHistoryView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        queries = CityQuery.objects.filter(user=request.user).order_by('-timestamp')
+        limit = request.query_params.get('limit')
+        if limit:
+            queries = CityQuery.objects.filter(user=request.user).order_by('-timestamp')[:int(limit)]
+        else:
+            queries = CityQuery.objects.filter(user=request.user).order_by('-timestamp')
         serializer = CityQuerySerializer(queries, many=True)
         return Response(serializer.data)
     

@@ -1,27 +1,25 @@
-import CitySearch from './components/CitySearch';
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import WeatherPage from './pages/WeatherPage';
+import HistoryPage from './pages/HistoryPage';
+import StatsPage from './pages/StatsPage';
 
+const backend_base = 'http://localhost:8000/api/';
 function App() {
-  const [forecast, setForecast] = useState(null);
-
   return (
     <div>
-      <h1>Прогноз погоды</h1>
-      <CitySearch onForecastReceived={setForecast} />
-      {forecast && (
-        <div>
-          <h2>Температура по часам</h2>
-          <ul>
-            {forecast.hourly.time.map((time, index) => (
-              <li key={index}>
-                {time}: {forecast.hourly.temperature_2m[index]}°C
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<WeatherPage backend_base={backend_base} />} />
+          <Route path="/login" element={<LoginPage backend_base={backend_base} />} />
+          <Route path="/register" element={<RegisterPage backend_base={backend_base} />} />
+          <Route path="/history" element={<HistoryPage backend_base={backend_base} />} />
+          <Route path="/stats" element={<StatsPage backend_base={backend_base} />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
