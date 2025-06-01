@@ -37,7 +37,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Start backend and DB (Docker Compose)
-        run: docker-compose up -d
+        run: docker compose up -d
         working-directory: ./frontend
 
       - name: Wait for services to be ready
