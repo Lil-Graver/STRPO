@@ -23,7 +23,7 @@ class HistoryTest(APITestCase):
         response = self.client.get(
             path='http://localhost:8000/api/history/', 
             headers={
-                'Authorization': f'Bearer {tokens['access']}'
+                'Authorization': f"Bearer {tokens['access']}"
             }
         )
         self.assertEqual(response.status_code, 200)
