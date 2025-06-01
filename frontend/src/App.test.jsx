@@ -3,5 +3,5 @@ import App from './App'
 
 test('renders app', () => {
   render(<App />)
-  expect(screen.getByText(/weather/i)).toBeInTheDocument()
+  expect(screen.getByText(/прогноз погоды/i).toBeInTheDocument()
 })
