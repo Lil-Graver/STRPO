@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend
+
+      - name: Start backend and DB (Docker Compose)
+        run: docker-compose up -d
+        working-directory: ./frontend
+
+      - name: Wait for services to be ready
+        run: |
+          for i in {1..10}; do
+            if curl -s http://localhost:8000/api/health; then
+              echo "Backend is ready"
+              break
+            fi
+            echo "Waiting for backend..."
+            sleep 5
+          done
+        working-directory: ./frontend
+
+      - name: Run integration tests
+        run: npm run test -- --run
+        working-directory: ./frontend
+
+      - name: Stop Docker Compose
+        if: always()
+        run: docker-compose down
+        working-directory: ./frontend
