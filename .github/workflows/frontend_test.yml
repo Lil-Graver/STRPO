@@ -1,7 +1,7 @@
 name: Frontend CI
 run-name: ${{ github.actor }} is testing React frontend ⚛️
 
-on: [push]
+on: [push,workflow_dispatch]
 
 jobs:
   frontend-tests:
