@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [Lil-Graver-patch-1]
   pull_request:
 
 jobs:
