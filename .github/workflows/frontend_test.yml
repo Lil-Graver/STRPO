@@ -24,4 +24,4 @@ jobs:
       - name: 🧪 Run tests
         run: |
           cd frontend
-          npm test -- --watchAll=false
+          npm test
