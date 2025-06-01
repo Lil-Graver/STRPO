@@ -1,7 +1,10 @@
 import { render, screen } from '@testing-library/react'
+import { describe, test, expect } from 'vitest'
 import App from './App'
 
-test('renders app', () => {
-  render(<App />)
-  expect(screen.getByText(/прогноз погоды/i).toBeInTheDocument()
+describe('App', () => {
+  test('renders app', () => {
+    render(<App />)
+    expect(screen.getByText(/прогноз погоды/i)).toBeInTheDocument()
+  })
 })
